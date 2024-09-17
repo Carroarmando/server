@@ -466,11 +466,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Utente\\Desktop\\LatoServer\\LatoServer.csproj",
+      "projectUniqueName": "C:\\Users\\Utente\\Desktop\\server\\server\\LatoServer.csproj",
       "projectName": "LatoServer",
-      "projectPath": "C:\\Users\\Utente\\Desktop\\LatoServer\\LatoServer.csproj",
+      "projectPath": "C:\\Users\\Utente\\Desktop\\server\\server\\LatoServer.csproj",
       "packagesPath": "C:\\Users\\Utente\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Utente\\Desktop\\LatoServer\\obj\\",
+      "outputPath": "C:\\Users\\Utente\\Desktop\\server\\server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

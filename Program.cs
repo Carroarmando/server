@@ -6,9 +6,6 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using SFML.Window;
-using SFML.System;
-using SFML.Graphics;
 
 
 namespace LatoServer

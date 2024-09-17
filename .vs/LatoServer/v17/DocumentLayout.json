@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Utente\\Desktop\\server\\server\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{101BD5A7-576A-4611-BE93-F6715C72BEE1}|LatoServer.csproj|c:\\users\\utente\\desktop\\server\\server\\gioco.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{101BD5A7-576A-4611-BE93-F6715C72BEE1}|LatoServer.csproj|solutionrelative:gioco.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{101BD5A7-576A-4611-BE93-F6715C72BEE1}|LatoServer.csproj|c:\\users\\utente\\desktop\\server\\server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{101BD5A7-576A-4611-BE93-F6715C72BEE1}|LatoServer.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Utente\\Desktop\\server\\server\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Utente\\Desktop\\server\\server\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-17T13:18:45.68Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Gioco.cs",
+              "DocumentMoniker": "C:\\Users\\Utente\\Desktop\\server\\server\\Gioco.cs",
+              "RelativeDocumentMoniker": "Gioco.cs",
+              "ToolTip": "C:\\Users\\Utente\\Desktop\\server\\server\\Gioco.cs",
+              "RelativeToolTip": "Gioco.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAiwDIAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-17T13:18:45.367Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

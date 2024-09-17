@@ -16,7 +16,7 @@ namespace LatoServer
 
         TcpClient[] tcpClients;
 
-        Casa[,] mappa;
+        int[,] mappa;
 
         public Gioco(TcpClient[] tcpClients, int port)
         {
@@ -47,10 +47,10 @@ namespace LatoServer
                 string s = "";
                 for (int y = 0; y < 7; y++)
                     for (int x = 0; x < 7; x++)
-                        if ((int)mappa[x, y] < 10)
-                            s += "0" + ((int)mappa[x, y]).ToString();
+                        if (mappa[x, y] < 10)
+                            s += "0" + (mappa[x, y]).ToString();
                         else
-                            s += ((int)mappa[x, y]).ToString();
+                            s += (mappa[x, y]).ToString();
                 map.AddRange(Encoding.UTF8.GetBytes(s));
 
                 byte[] Map = map.ToArray();
@@ -180,9 +180,9 @@ namespace LatoServer
                 }
             }
         }
-        static Casa[,] CreaMappa(int lenght)
+        static int[,] CreaMappa(int lenght)
         {
-            Casa[,] mappa = new Casa[lenght, lenght];
+            int[,] mappa = new int[lenght, lenght];
             for (int y = 0; y < mappa.GetLength(1); y++)
                 for (int x = 0; x < mappa.GetLength(0); x++)
                 {

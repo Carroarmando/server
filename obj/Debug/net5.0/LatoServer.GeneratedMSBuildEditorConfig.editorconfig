@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = LatoServer
-build_property.ProjectDir = C:\Users\Utente\Desktop\LatoServer\
+build_property.ProjectDir = C:\Users\Utente\Desktop\server\server\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
