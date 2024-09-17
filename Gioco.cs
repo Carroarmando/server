@@ -43,27 +43,21 @@ namespace LatoServer
             List<byte> data = new List<byte>();
 
             {
-                List<byte> map = new(Encoding.UTF8.GetBytes("map"));
-                string s = "";
+                string s = "map";
                 for (int y = 0; y < 7; y++)
                     for (int x = 0; x < 7; x++)
                         if (mappa[x, y] < 10)
                             s += "0" + (mappa[x, y]).ToString();
                         else
-                            s += (mappa[x, y]).ToString();
-                map.AddRange(Encoding.UTF8.GetBytes(s));
+                            s += mappa[x, y].ToString();
 
-                byte[] Map = map.ToArray();
-                byte[] lengthPrefix = BitConverter.GetBytes(Map.Length);
-                stream.Write(lengthPrefix, 0, lengthPrefix.Length);
-                stream.Write(Map, 0, Map.Length);
-                stream.Flush();
+                Write(s, stream);
 
                 string message;
                 do
                 {
-                    lengthPrefix = new byte[7];
-                    stream.Read(lengthPrefix, 0, 7);
+                    byte[] lengthPrefix = new byte[4];
+                    stream.Read(lengthPrefix, 0, 4);
                     int messageLength = BitConverter.ToInt32(lengthPrefix, 0);
 
                     byte[] Data = new byte[messageLength];
@@ -73,25 +67,21 @@ namespace LatoServer
                 } while (message == "confmap");
             }//invio mappa
             {
-                int n = 5;
+                int n = 9;
                 for (int i = 0; i < tcpClients.Length; i++)
                     if (tcpClients[i] == client)
                         n = i;
-                if (n == 5)
+                if (n == 9)
                     throw (new Exception("n"));
                 string s = "num" + n;
 
-                byte[] Map = Encoding.UTF8.GetBytes(s);
-                byte[] lengthPrefix = BitConverter.GetBytes(Map.Length);
-                stream.Write(lengthPrefix, 0, lengthPrefix.Length);
-                stream.Write(Map, 0, Map.Length);
-                stream.Flush();
+                Write(s, stream);
 
                 string message;
                 do
                 {
-                    lengthPrefix = new byte[7];
-                    stream.Read(lengthPrefix, 0, 7);
+                    byte[] lengthPrefix = new byte[4];
+                    stream.Read(lengthPrefix, 0, 4);
                     int messageLength = BitConverter.ToInt32(lengthPrefix, 0);
 
                     byte[] Data = new byte[messageLength];
@@ -103,17 +93,13 @@ namespace LatoServer
             {
                 string s = "ngt" + tcpClients.Length;
 
-                byte[] Map = Encoding.UTF8.GetBytes(s);
-                byte[] lengthPrefix = BitConverter.GetBytes(Map.Length);
-                stream.Write(lengthPrefix, 0, lengthPrefix.Length);
-                stream.Write(Map, 0, Map.Length);
-                stream.Flush();
+                Write(s, stream);
 
                 string message;
                 do
                 {
-                    lengthPrefix = new byte[7];
-                    stream.Read(lengthPrefix, 0, 7);
+                    byte[] lengthPrefix = new byte[4];
+                    stream.Read(lengthPrefix, 0, 4);
                     int messageLength = BitConverter.ToInt32(lengthPrefix, 0);
 
                     byte[] Data = new byte[messageLength];
@@ -159,16 +145,14 @@ namespace LatoServer
 
             while (true)
             {
-                List<byte> data = new List<byte>();
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-                while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
-                {
-                    data.AddRange(buffer.Take(bytesRead));
-                    if (bytesRead < 1024)
-                        break;
-                }
-                string message = Encoding.UTF8.GetString(data.ToArray());
+                byte[] lengthPrefix = new byte[4];
+                stream.Read(lengthPrefix, 0, 4);
+                int messageLength = BitConverter.ToInt32(lengthPrefix, 0);
+
+                byte[] Data = new byte[messageLength];
+                stream.Read(Data, 0, messageLength);
+
+                string message = Encoding.UTF8.GetString(Data);
 
                 string code = message[..3];
                 message = message.Substring(3);
@@ -249,5 +233,14 @@ namespace LatoServer
                 }
             }
         }
+
+        static void Write(string message, NetworkStream stream)
+        {
+            byte[] str = Encoding.UTF8.GetBytes(message);
+            byte[] lengthPrefix = BitConverter.GetBytes(str.Length);
+            stream.Write(lengthPrefix, 0, lengthPrefix.Length);
+            stream.Write(str, 0, str.Length);
+            stream.Flush();
+        }//invia il messaggio al player
     }
 }

@@ -17,7 +17,7 @@ namespace LatoServer
         static object ClientsLock = new object();
         static List<TcpClient> tcpClients = new List<TcpClient>();
 
-        public const int giocatori = 2;
+        public const int giocatori = 1;
         static void Main()
         {
             server.Start();
