@@ -167,75 +167,89 @@ namespace LatoServer
         static int[,] CreaMappa(int lenght)
         {
             int[,] mappa = new int[lenght, lenght];
-            for (int y = 0; y < mappa.GetLength(1); y++)
-                for (int x = 0; x < mappa.GetLength(0); x++)
-                {
-                    Random r = new Random();
-                    int n = r.Next(100);
-
-                    if (n < 65)
-                        mappa[x, y] = 11;
-                    else if (n < 90)
-                    {
-                        int n1 = r.Next(1, 5);
-                        switch (n1)
-                        {
-                            case 1:
-                                mappa[x, y] = 10;
-                                break;
-                            case 2:
-                                mappa[x, y] = 21;
-                                break;
-                            case 3:
-                                mappa[x, y] = 12;
-                                break;
-                            case 4:
-                                mappa[x, y] = 01;
-                                break;
-                        }
-                    }
+            for (int y = 0; y < lenght; y++)
+                for (int x = 0; x < lenght; x++)
+                    if (x == 0)
+                        if (y == 0)
+                            mappa[x, y] = 0;
+                        else if (y == lenght - 1)
+                            mappa[x, y] = 2;
+                        else
+                            mappa[x, y] = 1;
+                    else if (x == lenght - 1)
+                        if (y == 0)
+                            mappa[x, y] = 20;
+                        else if (y == lenght - 1)
+                            mappa[x, y] = 22;
+                        else
+                            mappa[x, y] = 21;
+                    else if (y == 0)
+                        mappa[x, y] = 10;
+                    else if (y == lenght - 1)
+                        mappa[x, y] = 12;
                     else
                     {
-                        int n1 = r.Next(1, 5);
-                        switch (n1)
+                        Random r = new Random();
+                        int n = r.Next(100);
+
+                        if (n < 65)
+                            mappa[x, y] = 11;
+                        else if (n < 90)
                         {
-                            case 1:
-                                mappa[x, y] = 00;
-                                break;
-                            case 2:
-                                mappa[x, y] = 20;
-                                break;
-                            case 3:
-                                mappa[x, y] = 22;
-                                break;
-                            case 4:
-                                mappa[x, y] = 02;
-                                break;
+                            int n1 = r.Next(1, 5);
+                            switch (n1)
+                            {
+                                case 1:
+                                    mappa[x, y] = 10;
+                                    break;
+                                case 2:
+                                    mappa[x, y] = 21;
+                                    break;
+                                case 3:
+                                    mappa[x, y] = 12;
+                                    break;
+                                case 4:
+                                    mappa[x, y] = 01;
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            int n1 = r.Next(1, 5);
+                            switch (n1)
+                            {
+                                case 1:
+                                    mappa[x, y] = 00;
+                                    break;
+                                case 2:
+                                    mappa[x, y] = 20;
+                                    break;
+                                case 3:
+                                    mappa[x, y] = 22;
+                                    break;
+                                case 4:
+                                    mappa[x, y] = 02;
+                                    break;
+                            }
                         }
                     }
-                }
             return mappa;
         }
-        void plr(object message) //"[indice in tcpclients][pixel][chunk][cube][stato]
+        void plr(object message) // [indice in tcpclients][pixel][chunk][cube][stato][k]
         {
             string msg = message.ToString();
             foreach(TcpClient client in tcpClients)
             {
                 NetworkStream stream = client.GetStream();
                 string s = "plr" + msg;
-                byte[] data = Encoding.UTF8.GetBytes(s);
-                
-                int offset = 0;
-                while (offset < data.Length)
-                {
-                    stream.Write(data, offset, Math.Min(data.Length - offset, 1024));
-                    offset += 1024;
-                }
+
+                Write(s, stream);
             }
         }
 
         static void Write(string message, NetworkStream stream)
         {
+            Console.WriteLine(message);
             byte[] str = Encoding.UTF8.GetBytes(message);
             byte[] lengthPrefix = BitConverter.GetBytes(str.Length);
             stream.Write(lengthPrefix, 0, lengthPrefix.Length);
