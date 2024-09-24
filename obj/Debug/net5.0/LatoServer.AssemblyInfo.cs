@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LatoServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b35a65a68c45aa12022ca8f59d13710e4f747a5c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+377ba6657c4fd0956b78044582814954dad18e9a")]
 [assembly: System.Reflection.AssemblyProductAttribute("LatoServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LatoServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -14,22 +15,43 @@ namespace LatoServer
     {
         int tcpPort;
 
-        TcpClient[] tcpClients;
+        User[] users;
+        public struct User
+        {
+            public int stato, dir;
+            public int cube, chunk, pixel;
+            TcpClient client;
+            public User(TcpClient client)
+            {
+                this.client = client;
+                cube = 0;
+                chunk = 0;
+                pixel = 0;
+                stato = 0;
+                dir = 0;
+            }
+            public static implicit operator TcpClient(User u) => u.client;
+            public static implicit operator User(TcpClient client) => new User(client);
+            public static bool operator ==(User u, TcpClient client) => u.client.Equals(client);
+            public static bool operator !=(User u, TcpClient client) => !u.client.Equals(client);
+        }
 
         int[,] mappa;
 
         public Gioco(TcpClient[] tcpClients, int port)
         {
-            this.tcpClients = tcpClients;
             if (tcpClients.Length != Program.giocatori)
                 throw new ArgumentException();
 
-            mappa = CreaMappa(7);
+            users = new User[tcpClients.Length];
+            for (int i = 0; i < tcpClients.Length; i++)
+                users[i] = tcpClients[i];
 
-            this.tcpClients = tcpClients;
             tcpPort = port;
 
-            foreach(TcpClient client in tcpClients)
+            mappa = CreaMappa(7);
+
+            foreach(TcpClient client in users)
             {
                 Thread clientThread = new Thread(() => HandleClient(client));
                 clientThread.Start();
@@ -38,10 +60,6 @@ namespace LatoServer
         private void HandleClient(TcpClient client)
         {
             NetworkStream stream = client.GetStream();
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            List<byte> data = new List<byte>();
-
             {
                 string s = "map";
                 for (int y = 0; y < 7; y++)
@@ -64,12 +82,12 @@ namespace LatoServer
                     stream.Read(Data, 0, messageLength);
 
                     message = Encoding.UTF8.GetString(Data);
-                } while (message == "confmap");
+                } while (message != "confmap");
             }//invio mappa
             {
                 int n = 9;
-                for (int i = 0; i < tcpClients.Length; i++)
-                    if (tcpClients[i] == client)
+                for (int i = 0; i < users.Length; i++)
+                    if (users[i] == client)
                         n = i;
                 if (n == 9)
                     throw (new Exception("n"));
@@ -88,10 +106,10 @@ namespace LatoServer
                     stream.Read(Data, 0, messageLength);
 
                     message = Encoding.UTF8.GetString(Data);
-                } while (message == "confnum");
+                } while (message != "confnum");
             }//invio numeri
             {
-                string s = "ngt" + tcpClients.Length;
+                string s = "ngt" + users.Length;
 
                 Write(s, stream);
 
@@ -106,35 +124,10 @@ namespace LatoServer
                     stream.Read(Data, 0, messageLength);
 
                     message = Encoding.UTF8.GetString(Data);
-                } while (message == "confngt");
+                } while (message != "confngt");
             }//invio numero giocatori
 
             new Thread(() => Ricezione(stream)).Start();
-
-            try
-            {
-                while (true)
-                {
-                    while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
-                    {
-                        data.AddRange(buffer.Take(bytesRead));
-                        string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Errore nella gestione del client: " + e.Message);
-            }
-            finally
-            {
-                // Chiudi la connessione
-                stream.Close();
-                client.Close();
-                for (int i = 0; i < tcpClients.Length; i++)
-                    if (tcpClients[i] == client)
-                        tcpClients[i] = null;
-            }
         }
         void Ricezione(NetworkStream stream)
         {
@@ -238,13 +231,12 @@ namespace LatoServer
         void plr(object message) // [indice in tcpclients][pixel][chunk][cube][stato][k]
         {
             string msg = message.ToString();
-            foreach(TcpClient client in tcpClients)
-            {
-                NetworkStream stream = client.GetStream();
-                string s = "plr" + msg;
-
-                Write(s, stream);
-            }
+            int i = msg[0] - '0';
+            users[i].pixel = Convert.ToInt32(msg[1..3]);
+            users[i].chunk = Convert.ToInt32(msg[3..5]);
+            users[i].cube  = Convert.ToInt32(msg[5..7]);
+            users[i].stato = msg[7] - '0';
+            users[i].dir   = msg[8] - '0';
         }
 
         static void Write(string message, NetworkStream stream)
