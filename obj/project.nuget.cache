@@ -1,15 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "DZnmBtrIXMo=",
+  "dgSpecHash": "COw0svoXVx85v4GBLCyAs2BN0zl+zFy8VjUesNpJzBfm0CDJG4MAeJBw1ZR9bDr25ko6AZbzWSnobXqTnZJPVw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\caio9\\OneDrive\\Desktop\\server\\LatoServer.csproj",
+  "projectFilePath": "C:\\Users\\st10583\\Desktop\\server\\LatoServer.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\caio9\\.nuget\\packages\\csfml\\2.5.0\\csfml.2.5.0.nupkg.sha512",
-    "C:\\Users\\caio9\\.nuget\\packages\\sfml.audio\\2.5.0\\sfml.audio.2.5.0.nupkg.sha512",
-    "C:\\Users\\caio9\\.nuget\\packages\\sfml.graphics\\2.5.0\\sfml.graphics.2.5.0.nupkg.sha512",
-    "C:\\Users\\caio9\\.nuget\\packages\\sfml.net\\2.5.0\\sfml.net.2.5.0.nupkg.sha512",
-    "C:\\Users\\caio9\\.nuget\\packages\\sfml.system\\2.5.0\\sfml.system.2.5.0.nupkg.sha512",
-    "C:\\Users\\caio9\\.nuget\\packages\\sfml.window\\2.5.0\\sfml.window.2.5.0.nupkg.sha512"
+    "C:\\Users\\st10583\\.nuget\\packages\\csfml\\2.5.0\\csfml.2.5.0.nupkg.sha512",
+    "C:\\Users\\st10583\\.nuget\\packages\\sfml.audio\\2.5.0\\sfml.audio.2.5.0.nupkg.sha512",
+    "C:\\Users\\st10583\\.nuget\\packages\\sfml.graphics\\2.5.0\\sfml.graphics.2.5.0.nupkg.sha512",
+    "C:\\Users\\st10583\\.nuget\\packages\\sfml.net\\2.5.0\\sfml.net.2.5.0.nupkg.sha512",
+    "C:\\Users\\st10583\\.nuget\\packages\\sfml.system\\2.5.0\\sfml.system.2.5.0.nupkg.sha512",
+    "C:\\Users\\st10583\\.nuget\\packages\\sfml.window\\2.5.0\\sfml.window.2.5.0.nupkg.sha512"
   ],
   "logs": []
 }

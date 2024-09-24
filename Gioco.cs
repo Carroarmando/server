@@ -143,19 +143,27 @@ namespace LatoServer
                 int messageLength = BitConverter.ToInt32(lengthPrefix, 0);
 
                 byte[] Data = new byte[messageLength];
-                stream.Read(Data, 0, messageLength);
+                int n = stream.Read(Data, 0, messageLength);
 
-                string message = Encoding.UTF8.GetString(Data);
-
-                string code = message[..3];
-                message = message.Substring(3);
-
-                if (commands.ContainsKey(code))
+                if (n > 0)
                 {
-                    Thread thread = commands[code]();
-                    thread.Start(message);
+                    string message = Encoding.UTF8.GetString(Data);
+
+                    string code = message[..3];
+                    message = message.Substring(3);
+
+                    if (commands.ContainsKey(code))
+                    {
+                        Thread thread = commands[code]();
+                        thread.Start(message);
+                    }
+                }
+                else
+                {
+                    break;
                 }
             }
+            stream.Close();
         }
         static int[,] CreaMappa(int lenght)
         {
